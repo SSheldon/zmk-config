@@ -20,4 +20,5 @@
 ---
 include:
   - board: chiri_ce_left
+    snippet: zmk-usb-logging
   - board: chiri_ce_right
