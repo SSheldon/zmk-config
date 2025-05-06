@@ -97,9 +97,9 @@
 
         layer_Command {
             bindings = <
-  &none  &kp Q   &kp W  &trans  &trans  &trans                                   &trans  &trans    &trans    &trans  &trans  &none
-  &none  &kp A  &trans  &trans   &kp R  &trans                                   &trans  &trans    &trans    &trans  &trans  &none
-  &none  &none   &none  &trans  &trans  &trans   &none  &trans   &trans  &trans  &trans  &trans    &trans    &trans  &trans  &none
+  &none  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans  &none
+  &none  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans  &none
+  &none  &none   &none  &trans  &trans  &trans   &none  &trans   &trans  &trans    &trans    &trans  &trans  &none
                                  &none  &tog 1   &none  &kp TAB  &trans   &none
             >;
         };
