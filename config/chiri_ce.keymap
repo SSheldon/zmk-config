@@ -133,10 +133,10 @@
 
         layer_Nav {
             bindings = <
-  &none       &none      &none  &key_repeat      &none   &none                  &kp PG_UP   &kp BSPC    &kp UP    &kp DEL    &none  &none
-  &none   &sk LCTRL   &sk LGUI     &sk LALT  &sk LSHFT   &none                   &kp HOME   &kp LEFT  &kp DOWN  &kp RIGHT  &kp END  &none
-  &none       &none  &kp LA(X)    &kp LA(C)  &kp LA(V)   &none   &none   &none  &kp PG_DN  &kp SPACE   &kp RET    &kp TAB  &kp ESC  &none
-                                                 &none   &none   &none   &none      &none      &none
+  &none       &none      &none  &key_repeat      &none   &none                    &kp ESC   &kp RET   &kp BSPC    &kp DEL      &none  &none
+  &none   &sk LCTRL   &sk LGUI     &sk LALT  &sk LSHFT   &none                    &kp TAB  &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none
+  &none       &none  &kp LA(X)    &kp LA(C)  &kp LA(V)   &none   &none   &none  &kp SPACE  &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none
+                                                 &none   &none   &none   &none      &none     &none
             >;
         };
 
