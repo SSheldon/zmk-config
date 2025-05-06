@@ -101,19 +101,19 @@
 
         layer_Base {
             bindings = <
-  &none  &kp X  &kp C  &kp L  &kp D  &kp K                                   &kp Z          &kp Y    &kp O    &kp U      &kp Q  &none
-  &none  &kp R  &kp S  &kp T  &kp H  &kp F                                   &kp P          &kp N    &kp E    &kp I      &kp A  &none
-  &none  &kp W  &kp V  &kp G  &kp M  &kp J             &kp LCTRL  &kp RGUI   &kp BSPC       &kp B  &kp SQT  &kp DOT  &kp COMMA  &none
-                              &mo 2  &cmdt LALT SPACE  &lt 5 ESC  &lt 3 TAB  &mt RSHFT RET  &mo 4
+  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                                   &kp Z          &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
+  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                                   &kp P          &kp N    &kp E    &kp I      &kp A  &kp FSLH
+  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J             &kp LCTRL  &kp RGUI   &kp BSPC       &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
+                                  &mo 2  &cmdt LALT SPACE  &lt 5 ESC  &lt 3 TAB  &mt RSHFT RET  &mo 4
             >;
         };
 
         layer_Command {
             bindings = <
-  &none  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans  &none
-  &none  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans  &none
-  &none  &none   &none  &trans  &trans  &trans   &none  &trans   &trans  &trans    &trans    &trans  &trans  &none
-                                 &none  &tog 1   &none  &kp TAB  &trans   &none
+  &trans  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
+  &trans  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
+  &trans  &none   &none  &trans  &trans  &trans   &none  &trans   &trans  &trans    &trans    &trans  &trans  &trans
+                                  &none  &tog 1   &none  &kp TAB  &trans   &none
             >;
         };
 
@@ -137,9 +137,9 @@
 
         layer_Function {
             bindings = <
-  &none  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15  &none
-  &none     &kp LCTRL    &kp LGUI      &kp LALT     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &none
-  &none  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &none   &none   &none   &kp F10  &kp F1  &kp F2  &kp F3  &kp F13  &none
+  &none  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15  &kp F18
+  &none     &kp LCTRL    &kp LGUI      &kp LALT     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &kp F17
+  &none  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &none   &none   &none   &kp F10  &kp F1  &kp F2  &kp F3  &kp F13  &kp F16
                                                         &none   &none   &none   &none   &none    &none
             >;
         };
