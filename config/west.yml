@@ -8,11 +8,11 @@ manifest:
       url-base: https://github.com/SSheldon/
   projects:
     - name: zmk
-      remote: ssheldon
-      revision: pr2766
+      remote: zmkfirmware
+      revision: main
       import: app/west.yml
     - name: zmk-keyboard-chiri-ce
       remote: ssheldon
-      revision: pr2766
+      revision: main
   self:
     path: config
