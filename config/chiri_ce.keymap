@@ -164,6 +164,14 @@
     };
 };
 
+&lt {
+    flavor = "balanced";
+};
+
+&mt {
+    flavor = "balanced";
+};
+
 &sk {
     release-after-ms = <5000>;
     quick-release;
