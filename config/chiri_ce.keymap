@@ -101,10 +101,10 @@
 
         layer_Base {
             bindings = <
-  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                                   &kp Z          &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
-  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                                   &kp P          &kp N    &kp E    &kp I      &kp A  &kp FSLH
-  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J             &kp LCTRL  &kp RGUI   &kp BSPC       &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
-                                  &mo 2  &cmdt LALT SPACE  &lt 5 ESC  &lt 3 TAB  &mt RSHFT RET  &mo 4
+  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                                    &kp Z          &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
+  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                                    &kp P          &kp N    &kp E    &kp I      &kp A  &kp FSLH
+  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J              &kp LGUI   &kp RALT   &kp BSPC       &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
+                                  &mo 2  &cmdt LCTRL SPACE  &lt 5 ESC  &lt 3 TAB  &mt RSHFT RET  &mo 4
             >;
         };
 
@@ -138,7 +138,7 @@
         layer_Function {
             bindings = <
   &none  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15  &kp F18
-  &none     &kp LCTRL    &kp LGUI      &kp LALT     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &kp F17
+  &none      &kp LGUI    &kp LALT     &kp LCTRL     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &kp F17
   &none  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &none   &none   &none   &kp F10  &kp F1  &kp F2  &kp F3  &kp F13  &kp F16
                                                         &none   &none   &none   &none   &none    &none
             >;
@@ -146,10 +146,10 @@
 
         layer_Nav {
             bindings = <
-  &none       &none      &none  &key_repeat       &none   &none                     &kp ESC   &kp TAB    &kp RET    &kp DEL      &none  &none
-  &none  SMT(LCTRL)  SMT(LGUI)    SMT(LALT)  SMT(LSHFT)   &none                   &kp SPACE  &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none
-  &none       &none      &none        &none       &none   &none   &none    &none     &trans  &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none
-                                                  &none   &none   &none  &kp TAB    &kp RET     &none
+  &none      &none      &none  &key_repeat       &none   &none                     &kp ESC   &kp TAB    &kp RET    &kp DEL      &none  &none
+  &none  SMT(LGUI)  SMT(LALT)   SMT(LCTRL)  SMT(LSHFT)   &none                   &kp SPACE  &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none
+  &none      &none      &none        &none       &none   &none   &none    &none     &trans  &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none
+                                                 &none   &none   &none  &kp TAB    &kp RET     &none
             >;
         };
 
