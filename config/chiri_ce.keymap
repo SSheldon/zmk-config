@@ -1,6 +1,14 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
+#define LAYER_Base 0
+#define LAYER_Cmd 1
+#define LAYER_Num 2
+#define LAYER_Sym 3
+#define LAYER_Func 4
+#define LAYER_Nav 5
+#define LAYER_AppSwitch 6
+
 #define SMT(x) &smt x x
 
 / {
@@ -48,14 +56,14 @@
             bindings = <&macro_press>
                 , <&macro_param_1to1>
                 , <&kp MACRO_PLACEHOLDER>
-                , <&mo 1>
+                , <&mo LAYER_Cmd>
                 , <&macro_pause_for_release>
                 , <&macro_release>
                 , <&macro_param_1to1>
                 , <&kp MACRO_PLACEHOLDER>
-                , <&mo 1>
+                , <&mo LAYER_Cmd>
                 , <&macro_tap>
-                , <&tog_off 6>;
+                , <&tog_off LAYER_AppSwitch>;
         };
 
         // Begins app switching, enabling the AppSwitch layer
@@ -64,7 +72,7 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <0>;
-            bindings = <&tog_on 6>
+            bindings = <&tog_on LAYER_AppSwitch>
                 , <&kp TAB>;
         };
     };
@@ -77,15 +85,15 @@
             timeout-ms = <75>;
             key-positions = <14 15>;
             bindings = <&macro_app_switch_start>;
-            layers = <1>;
+            layers = <LAYER_Cmd>;
         };
 
         // Enables the number layer while held
         combo_num {
             timeout-ms = <75>;
             key-positions = <40 41>;
-            bindings = <&mo 2>;
-            layers = <0>;
+            bindings = <&mo LAYER_Num>;
+            layers = <LAYER_Base>;
             slow-release;
         };
     };
@@ -95,23 +103,23 @@
 
         layer_Base {
             bindings = <
-  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                                    &kp Z          &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
-  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                                    &kp P          &kp N    &kp E    &kp I      &kp A  &kp FSLH
-  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J              &kp LGUI   &kp RALT   &kp BSPC       &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
-                                  &mo 2  &cmdt LCTRL SPACE  &lt 5 ESC  &lt 3 TAB  &mt RSHFT RET  &mo 4
+  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                      &kp Z     &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
+  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                      &kp P     &kp N    &kp E    &kp I      &kp A  &kp FSLH
+  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J  &kp LGUI  &kp RALT  &kp BSPC  &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
+     &mo LAYER_Num  &cmdt LCTRL SPACE  &lt LAYER_Nav ESC  &lt LAYER_Sym TAB  &mt RSHFT RET  &mo LAYER_Func
             >;
         };
 
-        layer_Command {
+        layer_Cmd {
             bindings = <
   &trans  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
   &trans  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
   &trans  &kp Z   &kp X   &kp C   &kp V   &kp G   &none  &trans   &trans  &trans    &trans    &trans  &trans  &trans
-                                  &none  &tog 1   &none  &kp TAB  &trans   &none
+                                  &none   &none   &none  &kp TAB  &trans   &none
             >;
         };
 
-        layer_Number {
+        layer_Num {
             bindings = <
   &none  &kp TILDE     &kp AT  &kp HASH   &kp DLLR  &kp PRCNT                  &kp CARET  &kp N7     &kp N8   &kp N9  &kp COLON  &none
   &none   &kp EXCL  &kp EQUAL  &kp STAR  &kp MINUS   &kp PLUS                     &kp N0  &kp N4     &kp N5   &kp N6    &kp DOT  &none
@@ -120,7 +128,7 @@
             >;
         };
 
-        layer_Symbol {
+        layer_Sym {
             bindings = <
   &none  &kp TILDE     &kp AT  &kp HASH   &kp DLLR  &kp PRCNT                  &kp CARET   &kp AMPS  &kp LBKT  &kp RBKT   &kp SEMI  &none
   &none   &kp EXCL  &kp EQUAL  &kp STAR  &kp MINUS   &kp PLUS                   &kp PIPE  &kp UNDER  &kp LBRC  &kp RBRC  &kp COLON  &none
@@ -129,7 +137,7 @@
             >;
         };
 
-        layer_Function {
+        layer_Func {
             bindings = <
   &none  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15  &kp F18
   &none      &kp LGUI    &kp LALT     &kp LCTRL     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &kp F17
@@ -152,7 +160,7 @@
   &none     &none        &none    &none    &none   &none                   &none     &none     &none   &none      &none   &none
   &none  &kp HOME  &kp LS(TAB)  &kp TAB  &kp END   &none                   &none     &none     &none   &none      &none   &none
   &none     &none        &none    &none    &none   &none   &none   &none   &none     &none     &none   &none      &none   &none
-                                           &none  &tog 6   &none   &none   &none     &none
+                                           &none   &none   &none   &none   &none     &none
             >;
         };
     };
