@@ -1,6 +1,8 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
+#define SMT(x) &smt x x
+
 / {
     behaviors {
         tog_on: behavior_tog_on {
@@ -35,11 +37,7 @@
             hold-while-undecided-linger;
         };
     };
-};
 
-#define SMT(x) &smt x x
-
-/ {
     macros {
         // Enables the Command layer while a modifier is held
         macro_command_hold: macro_command_hold {
@@ -70,9 +68,7 @@
                 , <&kp TAB>;
         };
     };
-};
 
-/ {
     combos {
         compatible = "zmk,combos";
 
@@ -93,9 +89,7 @@
             slow-release;
         };
     };
-};
 
-/ {
     keymap {
         compatible = "zmk,keymap";
 
