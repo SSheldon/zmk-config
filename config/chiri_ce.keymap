@@ -14,6 +14,10 @@
 #define SMT(x) &smt x x
 
 / {
+    chosen {
+        zmk,matrix-transform = &five_column_transform;
+    };
+
     behaviors {
         tog_on: behavior_tog_on {
             compatible = "zmk,behavior-toggle-layer";
@@ -85,7 +89,7 @@
         // Begins app switching
         combo_app_switch {
             timeout-ms = <75>;
-            key-positions = <14 15>;
+            key-positions = <11 12>;
             bindings = <&macro_app_switch_start>;
             layers = <LAYER_Cmd>;
         };
@@ -104,73 +108,73 @@
 
         layer_Base {
             bindings = <
-  &kp EQUAL  &kp X  &kp C  &kp L  &kp D  &kp K                      &kp Z     &kp Y    &kp O    &kp U      &kp Q  &kp BSLH
-  &kp MINUS  &kp R  &kp S  &kp T  &kp H  &kp F                      &kp P     &kp N    &kp E    &kp I      &kp A  &kp FSLH
-  &kp GRAVE  &kp W  &kp V  &kp G  &kp M  &kp J  &kp LGUI  &kp RALT  &kp BSPC  &kp B  &kp SQT  &kp DOT  &kp COMMA  &kp SEMI
-     &mo LAYER_Sys  &cmdt LCTRL SPACE  &lt LAYER_Nav ESC  &lt LAYER_Sym TAB  &mt RSHFT RET  &mo LAYER_Func
+          &kp X  &kp C  &kp L  &kp D  &kp K                      &kp Z     &kp Y    &kp O    &kp U      &kp Q
+          &kp R  &kp S  &kp T  &kp H  &kp F                      &kp P     &kp N    &kp E    &kp I      &kp A
+          &kp W  &kp V  &kp G  &kp M  &kp J  &kp LGUI  &kp RALT  &kp BSPC  &kp B  &kp SQT  &kp DOT  &kp COMMA
+  &mo LAYER_Sys  &cmdt LCTRL SPACE  &lt LAYER_Nav ESC  &lt LAYER_Sym TAB  &mt RSHFT RET  &mo LAYER_Func
             >;
         };
 
         layer_Cmd {
             bindings = <
-  &trans  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
-  &trans  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans  &trans
-  &trans  &kp Z   &kp X   &kp C   &kp V   &kp G   &none  &trans   &trans  &trans    &trans    &trans  &trans  &trans
-                                  &none   &none   &none  &kp TAB  &trans   &none
+  &kp Q   &kp W  &trans  &trans  &trans                   &trans  &trans    &trans    &trans  &trans
+  &kp A  &trans  &trans   &kp R  &trans                   &trans  &trans    &trans    &trans  &trans
+  &kp Z   &kp X   &kp C   &kp V   &kp G   &none  &trans   &trans  &trans    &trans    &trans  &trans
+                          &none   &none   &none  &kp TAB  &trans   &none
             >;
         };
 
         layer_Nav {
             bindings = <
-  &none      &none      &none  &key_repeat       &none   &none                    &kp ESC   &kp TAB    &kp RET    &kp DEL      &none  &none
-  &none  SMT(LGUI)  SMT(LALT)   SMT(LCTRL)  SMT(LSHFT)   &none                  &kp SPACE  &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none
-  &none      &none      &none        &none       &none   &none   &none   &none     &trans  &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none
-                                                 &none   &none   &none  &trans    &kp RET     &none
+      &none      &none  &key_repeat       &none   &none                    &kp ESC   &kp TAB    &kp RET    &kp DEL      &none
+  SMT(LGUI)  SMT(LALT)   SMT(LCTRL)  SMT(LSHFT)   &none                  &kp SPACE  &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
+      &none      &none        &none       &none   &none   &none   &none     &trans  &kp HOME  &kp PG_DN  &kp PG_UP    &kp END
+                                          &none   &none   &none  &trans    &kp RET     &none
             >;
         };
 
         layer_Sym {
             bindings = <
-  &none  &kp TILDE     &kp AT  &kp HASH   &kp DLLR  &kp PRCNT                  &kp CARET   &kp AMPS  &kp LBKT  &kp RBKT   &kp SEMI  &none
-  &none   &kp EXCL  &kp EQUAL  &kp STAR  &kp MINUS   &kp PLUS                   &kp PIPE  &kp UNDER  &kp LBRC  &kp RBRC  &kp COLON  &none
-  &none  &kp GRAVE   &kp LPAR  &kp RPAR   &kp FSLH   &kp BSLH   &none   &none     &trans    &kp DQT    &kp LT    &kp GT  &kp QMARK  &none
-                                             &none  &kp SPACE   &trans  &none     &none     &none
+  &kp TILDE     &kp AT  &kp HASH   &kp DLLR  &kp PRCNT                  &kp CARET   &kp AMPS  &kp LBKT  &kp RBKT   &kp SEMI
+   &kp EXCL  &kp EQUAL  &kp STAR  &kp MINUS   &kp PLUS                   &kp PIPE  &kp UNDER  &kp LBRC  &kp RBRC  &kp COLON
+  &kp GRAVE   &kp LPAR  &kp RPAR   &kp FSLH   &kp BSLH   &none   &none     &trans    &kp DQT    &kp LT    &kp GT  &kp QMARK
+                                      &none  &kp SPACE   &trans  &none     &none     &none
             >;
         };
 
         layer_Num {
             bindings = <
-  &none  &trans  &trans  &trans  &trans  &trans                &kp CARET  &kp N7  &kp N8  &kp N9  &kp COLON  &none
-  &none  &trans  &trans  &trans  &trans  &trans                   &kp N0  &kp N4  &kp N5  &kp N6    &kp DOT  &none
-  &none  &trans  &trans  &trans  &trans  &trans  &none  &none     &trans  &kp N1  &kp N2  &kp N3  &kp COMMA  &none
-                                  &none   &none  &none  &none      &none   &none
+  &trans  &trans  &trans  &trans  &trans                &kp CARET  &kp N7  &kp N8  &kp N9  &kp COLON
+  &trans  &trans  &trans  &trans  &trans                   &kp N0  &kp N4  &kp N5  &kp N6    &kp DOT
+  &trans  &trans  &trans  &trans  &trans  &none  &none     &trans  &kp N1  &kp N2  &kp N3  &kp COMMA
+                           &none   &none  &none  &none      &none   &none
             >;
         };
 
         layer_Func {
             bindings = <
-  &none  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15  &kp F18
-  &none      &kp LGUI    &kp LALT     &kp LCTRL     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14  &kp F17
-  &none  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &none   &none   &none   &kp F10  &kp F1  &kp F2  &kp F3  &kp F13  &kp F16
-                                                        &none   &none   &none   &none   &none    &none
+  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP   &none                   &kp F12  &kp F7  &kp F8  &kp F9  &kp F15
+      &kp LGUI    &kp LALT     &kp LCTRL     &kp LSHFT   &none                   &kp F11  &kp F4  &kp F5  &kp F6  &kp F14
+  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &none   &none   &none   &kp F10  &kp F1  &kp F2  &kp F3  &kp F13
+                                                 &none   &none   &none   &none   &none    &none
             >;
         };
 
         layer_Sys {
             bindings = <
-  &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                   &none  &none  &none       &none        &none  &none
-  &none  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                   &none  &none  &none       &none        &none  &none
-  &none      &bootloader       &sys_reset            &none            &none            &none   &none   &none   &none  &none  &none  &sys_reset  &bootloader  &none
-                                                                      &none            &none   &none   &none   &none  &none
+  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                   &none  &none  &none       &none        &none
+  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                   &none  &none  &none       &none        &none
+      &bootloader       &sys_reset            &none            &none            &none   &none   &none   &none  &none  &none  &sys_reset  &bootloader
+                                                               &none            &none   &none   &none   &none  &none
             >;
         };
 
         layer_AppSwitch {
             bindings = <
-  &none     &none        &none    &none    &none   &none                   &none     &none     &none   &none      &none   &none
-  &none  &kp HOME  &kp LS(TAB)  &kp TAB  &kp END   &none                   &none     &none     &none   &none      &none   &none
-  &none     &none        &none    &none    &none   &none   &none   &none   &none     &none     &none   &none      &none   &none
-                                           &none   &none   &none   &none   &none     &none
+     &none        &none    &none    &none   &none                   &none     &none     &none   &none      &none
+  &kp HOME  &kp LS(TAB)  &kp TAB  &kp END   &none                   &none     &none     &none   &none      &none
+     &none        &none    &none    &none   &none   &none   &none   &none     &none     &none   &none      &none
+                                    &none   &none   &none   &none   &none     &none
             >;
         };
     };
