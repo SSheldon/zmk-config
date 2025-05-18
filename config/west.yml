@@ -4,15 +4,17 @@ manifest:
       url-base: https://github.com/zmkfirmware
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: paulshir
+      url-base: https://github.com/paulshir
     - name: ssheldon
       url-base: https://github.com/SSheldon/
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: main
+      remote: paulshir
+      revision: main+pio-led
       import: app/west.yml
     - name: zmk-keyboard-chiri-ce
       remote: ssheldon
-      revision: main
+      revision: rgb
   self:
     path: config
