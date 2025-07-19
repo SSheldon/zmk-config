@@ -8,8 +8,8 @@ manifest:
       url-base: https://github.com/SSheldon/
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: main
+      remote: ssheldon
+      revision: split_wired_reorder
       import: app/west.yml
     - name: zmk-keyboard-chiri-ce
       remote: ssheldon
