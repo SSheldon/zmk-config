@@ -6,10 +6,12 @@ manifest:
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
     - name: ssheldon
       url-base: https://github.com/SSheldon/
+    - name: petejohanson
+      url-base: https://github.com/petejohanson
   projects:
     - name: zmk
-      remote: ssheldon
-      revision: split_wired_reorder
+      remote: petejohanson
+      revision: split/polling-mode-fixes
       import: app/west.yml
     - name: zmk-keyboard-chiri-ce
       remote: ssheldon
