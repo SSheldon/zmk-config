@@ -11,7 +11,7 @@ manifest:
   projects:
     - name: zmk
       remote: paulshir
-      revision: main+pio-led
+      revision: v0.3+pio-led-branch
       import: app/west.yml
     - name: zmk-keyboard-chiri-ce
       remote: ssheldon
