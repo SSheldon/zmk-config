@@ -55,7 +55,7 @@
             bindings = <&mo>, <&kp>;
             flavor = "balanced";
             require-prior-idle-ms = <125>;
-            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 27 28 29 30 31 37>;
+            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 27 28 29 30 31 36>;
             hold-trigger-on-release;
         };
 
