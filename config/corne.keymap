@@ -161,10 +161,10 @@
 
         layer_Cmd {
             bindings = <
-  &kp LG(Q)  &kp LG(W)  &kp LG(L)  &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)  &none
-  &kp LG(A)  &kp LG(S)  &kp LG(T)  &kp LG(R)  &kp LG(F)    &kp LG(P)  &kp LG(N)      &none  &kp LG(I)  &none
-  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(B)      &none      &none  &none
-                                  &none   &none  &trans  &trans  &qtmt RSHFT LG(BSPC)  &none
+        &kp LG(Q)       &kp LG(W)       &kp LG(L)        &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)      &none
+  &mt LCTRL LG(A)  &mt LALT LG(S)  &mt LGUI LG(T)  &mt LSHFT LG(R)  &kp LG(F)    &kp LG(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
+        &kp LG(Z)       &kp LG(X)       &kp LG(C)        &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(N)  &kp LG(B)  &kp LG(I)      &none
+                                                        &none   &none  &trans  &trans  &qtmt RSHFT LG(BSPC)  &none
             >;
         };
 
