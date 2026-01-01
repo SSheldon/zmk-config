@@ -91,6 +91,15 @@
             flavor = "balanced";
             quick-tap-ms = <200>;
         };
+
+        // Presses a mod on hold, begins app switching on tap
+        mas: mas {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <175>;
+            bindings = <&kp>, <&macro_app_switch_start>;
+            flavor = "tap-preferred";
+        };
     };
 
     macros {
@@ -138,11 +147,11 @@
     combos {
         compatible = "zmk,combos";
 
-        // Begins app switching
+        // Presses mods on hold, begins app switching on tap for macOS
         combo_app_switch {
             timeout-ms = <75>;
             key-positions = <11 12>;
-            bindings = <&macro_app_switch_start LGUI>;
+            bindings = <&mas LG(LALT) LGUI>;
             layers = <LAYER_Cmd>;
         };
     };
