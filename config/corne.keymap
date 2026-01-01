@@ -3,15 +3,23 @@
 #include <dt-bindings/zmk/bt.h>
 
 #define LAYER_Base 0
-#define LAYER_Cmd 1
-#define LAYER_Num 2
-#define LAYER_SymR 3
-#define LAYER_SymL 4
-#define LAYER_Func 5
-#define LAYER_Util 6
-#define LAYER_Nav 7
-#define LAYER_Sys 8
-#define LAYER_AppSwitch 9
+#define LAYER_Win 1
+#define LAYER_Cmd 2
+#define LAYER_Cmd_Win 3
+#define LAYER_Num 4
+#define LAYER_Num_Win 5
+#define LAYER_SymR 6
+#define LAYER_SymR_Win 7
+#define LAYER_SymL 8
+#define LAYER_SymL_Win 9
+#define LAYER_Func 10
+#define LAYER_Func_Win 11
+#define LAYER_Util 12
+#define LAYER_Util_Win 13
+#define LAYER_Nav 14
+#define LAYER_Nav_Win 15
+#define LAYER_Sys 16
+#define LAYER_AppSwitch 17
 
 #define NumLT(x)  &lhlt LAYER_Num  x
 #define SymRLT(x) &lhlt LAYER_SymR x
@@ -48,20 +56,36 @@
             toggle-mode = "off";
         };
 
-        bspc_word_modless: behavior_bspc_word_modless {
+        bspc_word_modless_mac: behavior_bspc_word_modless_mac {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp LA(BSPC)>, <&kp BSPC>;
             mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
             keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
         };
+        bspc_word_modless_win: behavior_bspc_word_modless_win {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LC(BSPC)>, <&kp BSPC>;
+            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+        };
 
         // Layer-tap where layer release also ends app switching for macOS
-        last: last {
+        last_mac: last_mac {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <250>;
-            bindings = <&macro_mo_app_switch>, <&kp>;
+            bindings = <&macro_mo_app_switch_mac>, <&kp>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+        };
+        // Layer-tap where layer release also ends app switching for Windows
+        last_win: last_win {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            bindings = <&macro_mo_app_switch_win>, <&kp>;
             flavor = "balanced";
             require-prior-idle-ms = <150>;
         };
@@ -101,11 +125,20 @@
         };
 
         // On hold presses a mod, on tap backspaces a word for macOS
-        mbwm: mbwm {
+        mbwm_mac: behavior_mbwm_mac {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            bindings = <&kp>, <&bspc_word_modless>;
+            bindings = <&kp>, <&bspc_word_modless_mac>;
+            flavor = "balanced";
+            quick-tap-ms = <200>;
+        };
+        // On hold presses a mod, on tap backspaces a word for Windows
+        mbwm_win: behavior_mbwm_win {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&bspc_word_modless_win>;
             flavor = "balanced";
             quick-tap-ms = <200>;
         };
@@ -122,8 +155,8 @@
 
     macros {
         // Momentarily enables the given layer and, on release, ends app switching for macOS
-        macro_mo_app_switch: macro_mo_app_switch {
-            label = "&MACRO_MO_APP_SWITCH";
+        macro_mo_app_switch_mac: macro_mo_app_switch_mac {
+            label = "&MACRO_MO_APP_SWITCH_MAC";
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
             wait-ms = <0>;
@@ -136,6 +169,22 @@
                 , <&mo MACRO_PLACEHOLDER>
                 , <&macro_tap>
                 , <&macro_app_switch_end LGUI>;
+        };
+        // Momentarily enables the given layer and, on release, ends app switching for Windows
+        macro_mo_app_switch_win: macro_mo_app_switch_win {
+            label = "&MACRO_MO_APP_SWITCH_WIN";
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            bindings = <&macro_press>
+                , <&macro_param_1to1>
+                , <&mo MACRO_PLACEHOLDER>
+                , <&macro_pause_for_release>
+                , <&macro_release>
+                , <&macro_param_1to1>
+                , <&mo MACRO_PLACEHOLDER>
+                , <&macro_tap>
+                , <&macro_app_switch_end LALT>;
         };
 
         // Begins app switching, toggling on the given mod and enabling the AppSwitch layer
@@ -166,11 +215,18 @@
         compatible = "zmk,combos";
 
         // Presses mods on hold, begins app switching on tap for macOS
-        combo_app_switch {
+        combo_app_switch_mac {
             timeout-ms = <75>;
             key-positions = <11 12>;
             bindings = <&mas LG(LALT) LGUI>;
             layers = <LAYER_Cmd>;
+        };
+        // Presses mods on hold, begins app switching on tap for Windows
+        combo_app_switch_win {
+            timeout-ms = <75>;
+            key-positions = <11 12>;
+            bindings = <&mas LA(LCTRL) LALT>;
+            layers = <LAYER_Cmd_Win>;
         };
     };
 
@@ -182,7 +238,16 @@
   &kp X    &kp C      &kp L     &kp D   &kp K    &kp Z     &kp Y      &kp O      &kp U       &kp Q
   &kp R  NumLT(S)  SymRLT(T)  NavLT(H)  &kp F    &kp P  UtilLT(N)  SymLLT(E)  FuncLT(I)      &kp A
   &kp W    &kp V      &kp G     &kp M   &kp J  &kp RET     &kp B     &kp SQT    &kp DOT  &kp COMMA
-  &mo LAYER_Sys  &last LAYER_Cmd SPACE  &qtmt LALT ESC  &qtmt RCTRL TAB  &qtmt RSHFT BSPC  &mo LAYER_Sys
+  &mo LAYER_Sys  &last_mac LAYER_Cmd SPACE  &qtmt LALT ESC  &qtmt RCTRL TAB  &qtmt RSHFT BSPC  &mo LAYER_Sys
+            >;
+        };
+
+        layer_Win {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &last_win LAYER_Cmd_Win SPACE  &trans  &qtmt RGUI TAB  &trans  &trans
             >;
         };
 
@@ -191,7 +256,16 @@
         &kp LG(Q)       &kp LG(W)       &kp LG(L)        &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)      &none
   &mt LCTRL LG(A)  &mt LALT LG(S)  &mt LGUI LG(T)  &mt LSHFT LG(R)  &kp LG(F)    &kp LG(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
         &kp LG(Z)       &kp LG(X)       &kp LG(C)        &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(N)  &kp LG(B)  &kp LG(I)      &none
-                                                        &none   &none  &trans  &trans  &mbwm RSHFT 0  &none
+                                                        &none   &none  &trans  &trans  &mbwm_mac RSHFT 0  &none
+            >;
+        };
+
+        layer_Cmd_Win {
+            bindings = <
+      &kp LA(F4)       &kp LC(W)        &kp LC(L)        &kp LC(D)  &kp LC(K)        &none  &kp LC(Y)  &kp LC(O)  &kp LC(U)      &none
+  &mt LGUI LC(A)  &mt LALT LC(S)  &mt LCTRL LC(T)  &mt LSHFT LC(R)  &kp LC(F)    &kp LC(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
+       &kp LC(Z)       &kp LC(X)        &kp LC(C)        &kp LC(V)  &kp LC(G)  &kp LC(RET)  &kp LC(N)  &kp LC(B)  &kp LC(I)      &none
+                                                        &none   &none  &trans  &trans  &mbwm_win RSHFT 0  &none
             >;
         };
 
@@ -204,12 +278,30 @@
             >;
         };
 
+        layer_Num_Win {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+       &trans  &qtmt LCTRL SPACE  &trans  &trans  &trans  &trans
+            >;
+        };
+
         layer_SymR {
             bindings = <
   &none           &none  &none   &none  &none   &kp CARET  &kp AMPS   &kp FSLH   &kp STAR  &kp TILDE
   &none   &mo LAYER_Num  &none   &none  &none    &kp PIPE    &kp GT  &kp MINUS  &kp EQUAL   &kp EXCL
   &none           &none  &none   &none  &none    &kp HASH    &kp LT   &kp PLUS     &kp AT  &kp QMARK
               &none  &qtmt LGUI SPACE  &trans  &trans  &qtmt RSHFT BSPC  &none
+            >;
+        };
+
+        layer_SymR_Win {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+       &trans  &qtmt LCTRL SPACE  &trans  &trans  &trans  &trans
             >;
         };
 
@@ -222,12 +314,30 @@
             >;
         };
 
+        layer_SymL_Win {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+       &trans  &qtmt LCTRL SPACE  &trans  &trans  &trans  &trans
+            >;
+        };
+
         layer_Func {
             bindings = <
   &kp F1   &kp F2   &kp F3   &kp F4  &kp F13  &none   &none   &none   &none   &none
   &kp F5   &kp F6   &kp F7   &kp F8  &kp F14  &none   &none   &none   &none   &none
   &kp F9  &kp F10  &kp F11  &kp F12  &kp F15  &none   &none   &none   &none   &none
                    &none  &kp LGUI  &kp LALT  &kp RCTRL  &kp RSHFT  &none
+            >;
+        };
+
+        layer_Func_Win {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+               &trans  &kp LCTRL  &trans  &kp RGUI  &trans  &trans
             >;
         };
 
@@ -240,6 +350,15 @@
             >;
         };
 
+        layer_Util_Win {
+            bindings = <
+    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &sk LGUI  &trans  &sk LCTRL  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                       &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
         layer_Nav {
             bindings = <
   &none   &none   &none   &none   &none      &none  &kp BSPC    &kp TAB    &kp DEL    &kp INS
@@ -249,12 +368,21 @@
             >;
         };
 
+        layer_Func_Nav {
+            bindings = <
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+               &trans  &kp LCTRL  &trans  &kp RGUI  &trans  &trans
+            >;
+        };
+
         layer_Sys {
             bindings = <
         &none       &none   &none   &none   &none   &none         &none         &none    &bt BT_CLR  &bt BT_CLR_ALL
         &none       &none   &none   &none   &none   &none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2    &bt BT_SEL 3
   &bootloader  &sys_reset   &none   &none   &none   &none         &none         &none    &sys_reset     &bootloader
-                            &none   &none   &none   &none   &none   &none
+                            &none   &none   &none   &none   &tog LAYER_Win   &none
             >;
         };
 
@@ -265,6 +393,34 @@
      &none        &none    &none    &none   &none   &none   &none   &none   &none   &none
                            &none    &none   &none   &none   &none   &none
             >;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        win_number_layer {
+            if-layers = <LAYER_Win LAYER_Num>;
+            then-layer = <LAYER_Num_Win>;
+        };
+        win_sym_right_layer {
+            if-layers = <LAYER_Win LAYER_SymR>;
+            then-layer = <LAYER_SymR_Win>;
+        };
+        win_sym_left_layer {
+            if-layers = <LAYER_Win LAYER_SymL>;
+            then-layer = <LAYER_SymL_Win>;
+        };
+        win_function_layer {
+            if-layers = <LAYER_Win LAYER_Func>;
+            then-layer = <LAYER_Func_Win>;
+        };
+        win_utility_layer {
+            if-layers = <LAYER_Win LAYER_Util>;
+            then-layer = <LAYER_Util_Win>;
+        };
+        win_nav_layer {
+            if-layers = <LAYER_Win LAYER_Nav>;
+            then-layer = <LAYER_Nav_Win>;
         };
     };
 };
