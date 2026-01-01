@@ -256,7 +256,7 @@
         &kp LG(Q)       &kp LG(W)       &kp LG(L)        &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)      &none
   &mt LCTRL LG(A)  &mt LALT LG(S)  &mt LGUI LG(T)  &mt LSHFT LG(R)  &kp LG(F)    &kp LG(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
         &kp LG(Z)       &kp LG(X)       &kp LG(C)        &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(N)  &kp LG(B)  &kp LG(I)      &none
-                                                        &none   &none  &trans  &trans  &mbwm_mac RSHFT 0  &none
+                                                        &none   &none  &trans  &trans  &mbwm_mac RSHFT 0  &kp LG(SPACE)
             >;
         };
 
@@ -265,7 +265,7 @@
       &kp LA(F4)       &kp LC(W)        &kp LC(L)        &kp LC(D)  &kp LC(K)        &none  &kp LC(Y)  &kp LC(O)  &kp LC(U)      &none
   &mt LGUI LC(A)  &mt LALT LC(S)  &mt LCTRL LC(T)  &mt LSHFT LC(R)  &kp LC(F)    &kp LC(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
        &kp LC(Z)       &kp LC(X)        &kp LC(C)        &kp LC(V)  &kp LC(G)  &kp LC(RET)  &kp LC(N)  &kp LC(B)  &kp LC(I)      &none
-                                                        &none   &none  &trans  &trans  &mbwm_win RSHFT 0  &none
+                                                        &none   &none  &trans  &trans  &mbwm_win RSHFT 0  &kp LG(Q)
             >;
         };
 
@@ -343,19 +343,19 @@
 
         layer_Util {
             bindings = <
-  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP        &none  &none   &none   &none   &none   &none
-     &sk LCTRL    &sk LALT      &sk LGUI     &sk LSHFT  &key_repeat  &none   &none   &none   &none   &none
-  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP        &none  &none   &none   &none   &none   &none
-                                   &none         &none        &none  &none   &none   &none
+  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP  &kp LG(LS(N3))  &none   &none   &none   &none   &none
+     &sk LCTRL    &sk LALT      &sk LGUI     &sk LSHFT     &key_repeat  &none   &none   &none   &none   &none
+  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &kp LG(LC(Q))  &none   &none   &none   &none   &none
+                                   &none         &none           &none  &none   &none   &none
             >;
         };
 
         layer_Util_Win {
             bindings = <
-    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-  &sk LGUI  &trans  &sk LCTRL  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                       &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans     &trans  &trans  &kp PSCRN  &trans  &trans  &trans  &trans  &trans
+  &sk LGUI  &trans  &sk LCTRL  &trans     &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans     &trans  &trans  &kp LG(L)  &trans  &trans  &trans  &trans  &trans
+                       &trans  &trans     &trans  &trans  &trans  &trans
             >;
         };
 
