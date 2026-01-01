@@ -37,12 +37,23 @@
             toggle-mode = "off";
         };
 
-        // Enables the Command layer while held
-        cmdt: cmdt {
+        kt_on: behavior_kt_on {
+            compatible = "zmk,behavior-key-toggle";
+            #binding-cells = <1>;
+            toggle-mode = "on";
+        };
+        kt_off: behavior_kt_off {
+            compatible = "zmk,behavior-key-toggle";
+            #binding-cells = <1>;
+            toggle-mode = "off";
+        };
+
+        // Layer-tap where layer release also ends app switching for macOS
+        last: last {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <250>;
-            bindings = <&macro_command_hold>, <&kp>;
+            bindings = <&macro_mo_app_switch>, <&kp>;
             flavor = "balanced";
             require-prior-idle-ms = <150>;
         };
@@ -83,33 +94,44 @@
     };
 
     macros {
-        // Enables the Command layer while a modifier is held
-        macro_command_hold: macro_command_hold {
-            label = "&MACRO_COMMAND_HOLD";
+        // Momentarily enables the given layer and, on release, ends app switching for macOS
+        macro_mo_app_switch: macro_mo_app_switch {
+            label = "&MACRO_MO_APP_SWITCH";
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
             wait-ms = <0>;
             bindings = <&macro_press>
                 , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&mo LAYER_Cmd>
+                , <&mo MACRO_PLACEHOLDER>
                 , <&macro_pause_for_release>
                 , <&macro_release>
                 , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&mo LAYER_Cmd>
+                , <&mo MACRO_PLACEHOLDER>
                 , <&macro_tap>
-                , <&tog_off LAYER_AppSwitch>;
+                , <&macro_app_switch_end LGUI>;
         };
 
-        // Begins app switching, enabling the AppSwitch layer
+        // Begins app switching, toggling on the given mod and enabling the AppSwitch layer
         macro_app_switch_start: macro_app_switch_start {
             label = "&MACRO_APP_SWITCH_START";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
             wait-ms = <0>;
             bindings = <&tog_on LAYER_AppSwitch>
+                , <&macro_param_1to1>
+                , <&kt_on MACRO_PLACEHOLDER>
                 , <&kp TAB>;
+        };
+
+        // Ends app switching, toggling off the given mod and disabling the AppSwitch layer
+        macro_app_switch_end: macro_app_switch_end {
+            label = "&MACRO_APP_SWITCH_END";
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            bindings = <&macro_param_1to1>
+                , <&kt_off MACRO_PLACEHOLDER>
+                , <&tog_off LAYER_AppSwitch>;
         };
     };
 
@@ -120,7 +142,7 @@
         combo_app_switch {
             timeout-ms = <75>;
             key-positions = <11 12>;
-            bindings = <&macro_app_switch_start>;
+            bindings = <&macro_app_switch_start LGUI>;
             layers = <LAYER_Cmd>;
         };
     };
@@ -133,16 +155,16 @@
   &kp X    &kp C      &kp L     &kp D   &kp K    &kp Z     &kp Y      &kp O      &kp U       &kp Q
   &kp R  NumLT(S)  SymRLT(T)  NavLT(H)  &kp F    &kp P  UtilLT(N)  SymLLT(E)  FuncLT(I)      &kp A
   &kp W    &kp V      &kp G     &kp M   &kp J  &kp RET     &kp B     &kp SQT    &kp DOT  &kp COMMA
-  &mo LAYER_Sys  &cmdt LGUI SPACE  &qtmt LALT ESC  &qtmt RCTRL TAB  &qtmt RSHFT BSPC  &mo LAYER_Sys
+  &mo LAYER_Sys  &last LAYER_Cmd SPACE  &qtmt LALT ESC  &qtmt RCTRL TAB  &qtmt RSHFT BSPC  &mo LAYER_Sys
             >;
         };
 
         layer_Cmd {
             bindings = <
-  &kp Q   &kp W  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-  &kp A  &trans  &trans   &kp R  &trans  &trans  &trans  &trans  &trans  &trans
-  &kp Z   &kp X   &kp C   &kp V   &kp G  &trans  &trans  &trans  &trans  &trans
-                  &none   &none  &trans  &trans  &trans   &none
+  &kp LG(Q)  &kp LG(W)  &kp LG(L)  &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)  &none
+  &kp LG(A)  &kp LG(S)  &kp LG(T)  &kp LG(R)  &kp LG(F)    &kp LG(P)  &kp LG(N)      &none  &kp LG(I)  &none
+  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(B)      &none      &none  &none
+                                  &none   &none  &trans  &trans  &qtmt RSHFT LG(BSPC)  &none
             >;
         };
 
