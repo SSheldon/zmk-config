@@ -48,6 +48,14 @@
             toggle-mode = "off";
         };
 
+        bspc_word_modless: behavior_bspc_word_modless {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LA(BSPC)>, <&kp BSPC>;
+            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+        };
+
         // Layer-tap where layer release also ends app switching for macOS
         last: last {
             compatible = "zmk,behavior-hold-tap";
@@ -88,6 +96,16 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            quick-tap-ms = <200>;
+        };
+
+        // On hold presses a mod, on tap backspaces a word for macOS
+        mbwm: mbwm {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&bspc_word_modless>;
             flavor = "balanced";
             quick-tap-ms = <200>;
         };
@@ -173,7 +191,7 @@
         &kp LG(Q)       &kp LG(W)       &kp LG(L)        &kp LG(D)  &kp LG(K)        &none  &kp LG(Y)  &kp LG(O)  &kp LG(U)      &none
   &mt LCTRL LG(A)  &mt LALT LG(S)  &mt LGUI LG(T)  &mt LSHFT LG(R)  &kp LG(F)    &kp LG(P)   &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT
         &kp LG(Z)       &kp LG(X)       &kp LG(C)        &kp LG(V)  &kp LG(G)  &kp LG(RET)  &kp LG(N)  &kp LG(B)  &kp LG(I)      &none
-                                                        &none   &none  &trans  &trans  &qtmt RSHFT LG(BSPC)  &none
+                                                        &none   &none  &trans  &trans  &mbwm RSHFT 0  &none
             >;
         };
 
