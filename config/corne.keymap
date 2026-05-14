@@ -343,9 +343,9 @@
 
         layer_Util {
             bindings = <
-  &kp C_BRI_UP  &kp C_PREV    &kp C_NEXT      &kp C_PP  &kp LG(LS(N3))  &none   &none   &none   &none   &none
-     &sk LCTRL    &sk LALT      &sk LGUI     &sk LSHFT     &key_repeat  &none   &none   &none   &none   &none
-  &kp C_BRI_DN  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &kp LG(LC(Q))  &none   &none   &none   &none   &none
+  &kp C_BRI_UP    &kp C_PREV    &kp C_NEXT    &kp C_PP  &kp LG(LS(N3))  &none   &none   &none   &none   &none
+     &sk LCTRL      &sk LALT      &sk LGUI   &sk LSHFT     &key_repeat  &none   &none   &none   &none   &none
+  &kp C_BRI_DN  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE   &kp LG(LC(Q))  &none   &none   &none   &none   &none
                                    &none         &none           &none  &none   &none   &none
             >;
         };
